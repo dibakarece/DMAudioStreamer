@@ -3,6 +3,10 @@ DMAudioStreamer
 
 [![License](https://img.shields.io/github/license/blipinsk/StaggeredAnimationGroup.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
+<a href="https://play.google.com/store/apps/details?id=dm.audiostreamerdemo">
+  <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+</a>
+
 `DMAudioStreamer` library help you to integrate audio streaming in your application.
 
 App Screens
