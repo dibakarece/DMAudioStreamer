@@ -75,6 +75,7 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
            }
 
 }
+```
 
 License
 =======
