@@ -10,7 +10,7 @@ Usage
 =====
 *For a working implementation of this library `clone/download` this repository.*
 
-1. Add below line code for yor application to implement audio streaming :
+1. Add below line code for your application to implement audio streaming :
 
 ```java
 public class MusicActivity extends AppCompatActivity implements CurrentSessionCallback{
