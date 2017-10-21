@@ -18,6 +18,20 @@ Usage
 =====
 *For a working implementation of this library `clone/download` this repository.*
 
+*How to add Library in your project*:
+```xml
+	allprojects {
+		repositories {
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+```xml
+    dependencies {
+		compile 'com.github.dibakarece:dmaudiostreamer:v1.0.0'
+	}
+```
+
 1. Add below line code for your application to implement audio streaming :
 
 ```java
