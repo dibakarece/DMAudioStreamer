@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_blue_grey_700">
+
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_below="@+id/layout_media_info"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp">
+
+        <dm.audiostreamerdemo.widgets.CircleImageView
+            android:id="@+id/image_songAlbumArt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_default_album_art"
+            app:border_color="@color/md_blue_grey_300"
+            app:border_width="22dp"
+            app:shadow="true"
+            app:shadow_color="@color/md_grey_400"
+            app:shadow_radius="10" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dragView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/image_songAlbumArtBlur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_default_album_art" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DDFFFFFF">
+
+        <LinearLayout
+            android:id="@+id/layout_media_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/text_songName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Fev Songs"
+                android:textColor="@color/md_blue_grey_700"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_songAlb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="My Fev Album"
+                android:textColor="@color/md_blue_grey_700"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_below="@+id/layout_media_info"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp">
+
+            <dm.audiostreamerdemo.widgets.CircleImageView
+                android:id="@+id/image_songAlbumArt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_default_album_art"
+                app:border_color="@color/md_blue_grey_100"
+                app:border_width="20dp"
+                app:shadow="true"
+                app:shadow_color="@color/md_grey_400"
+                app:shadow_radius="10" />
+
+            <ProgressBar
+                android:id="@+id/pgCenterCircle"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+
+        <include
+            android:id="@+id/bottom_palyLayout"
+            layout="@layout/include_slidepanelchildtwo_bottomview"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_control_panel"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical" />
+
+        <include
+            android:id="@+id/slideBottomView"
+            layout="@layout/include_slidepanelchildtwo_topviewtwo"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:visibility="invisible" />
+    </RelativeLayout>
+</RelativeLayout>
