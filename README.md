@@ -114,7 +114,7 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
 
 ```java
          MediaMetaData obj = new MediaMetaData();
-         infoData.setMediaId(`id`); *Media Duration Id*
+         infoData.setMediaId(`id`); *Media Id*
          infoData.setMediaUrl(`source`); *Media source `https://yourmusicsource/talkies.mp3`*
          infoData.setMediaTitle(`title`);
          infoData.setMediaArtist(`artist`);
