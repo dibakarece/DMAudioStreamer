@@ -71,9 +71,20 @@ public class AdapterMusic extends BaseAdapter {
     }
 
     public void notifyPlayState(MediaMetaData metaData) {
-        if (this.musicList != null) {
+        if (this.musicList != null && metaData != null) {
             int index = this.musicList.indexOf(metaData);
-            this.musicList.set(index, metaData);
+            //TODO SOMETIME INDEX RETURN -1 THOUGH THE OBJECT PRESENT IN THIS LIST
+            if (index == -1) {
+                for (int i = 0; i < this.musicList.size(); i++) {
+                    if (this.musicList.get(i).getMediaId().equalsIgnoreCase(metaData.getMediaId())) {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            if (index > 0 && index < this.musicList.size()) {
+                this.musicList.set(index, metaData);
+            }
         }
         notifyDataSetChanged();
     }

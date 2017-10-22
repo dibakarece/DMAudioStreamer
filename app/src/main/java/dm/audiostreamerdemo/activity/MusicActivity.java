@@ -110,17 +110,37 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
     @Override
     public void onStart() {
         super.onStart();
-        if (streamingManager != null) {
-            streamingManager.subscribesCallBack(this);
+        try {
+            if (streamingManager != null) {
+                streamingManager.subscribesCallBack(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void onStop() {
-        super.onStop();
-        if (streamingManager != null) {
-            streamingManager.unSubscribeCallBack();
+        try {
+            if (streamingManager != null) {
+                streamingManager.unSubscribeCallBack();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            if (streamingManager != null) {
+                streamingManager.unSubscribeCallBack();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -359,6 +379,8 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
                 adapterMusic.refresh(listMusic);
                 streamingManager.setMediaList(listMusic);
                 streamingManager.setPlayMultiple(true);
+
+                checkAlreadyPlaying();
             }
 
             @Override
@@ -373,6 +395,15 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
         });
     }
 
+    private void checkAlreadyPlaying() {
+        if (streamingManager.isPlaying()) {
+            currentSong = streamingManager.getCurrentAudio();
+            if (currentSong != null) {
+                showMediaInfo(currentSong);
+                notifyAdapter(currentSong);
+            }
+        }
+    }
     private void loadSongDetails(MediaMetaData metaData) {
         text_songName.setText(metaData.getMediaTitle());
         text_songAlb.setText(metaData.getMediaArtist());
@@ -425,26 +456,39 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
     }
 
     private void setPGTime(int progress) {
-        String timeString = "00.00";
-        int linePG = 0;
-        if (streamingManager.getCurrentAudio() != null && progress != Long.parseLong(streamingManager.getCurrentAudio().getMediaDuration())) {
-            timeString = DateUtils.formatElapsedTime(progress / 1000);
-            Long audioDuration = Long.parseLong(currentSong.getMediaDuration());
-            linePG = (int) (((progress / 1000) * 100) / audioDuration);
+        try {
+            String timeString = "00.00";
+            int linePG = 0;
+            currentSong = streamingManager.getCurrentAudio();
+            if (currentSong != null && progress != Long.parseLong(currentSong.getMediaDuration())) {
+                timeString = DateUtils.formatElapsedTime(progress / 1000);
+                Long audioDuration = Long.parseLong(currentSong.getMediaDuration());
+                linePG = (int) (((progress / 1000) * 100) / audioDuration);
+            }
+            time_progress_bottom.setText(timeString);
+            time_progress_slide.setText(timeString);
+            lineProgress.setLineProgress(linePG);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
-        time_progress_bottom.setText(timeString);
-        time_progress_slide.setText(timeString);
-        lineProgress.setLineProgress(linePG);
     }
 
     private void setMaxTime() {
-        String timeString = DateUtils.formatElapsedTime(Long.parseLong(currentSong.getMediaDuration()));
-        time_total_bottom.setText(timeString);
-        time_total_slide.setText(timeString);
+        try {
+            String timeString = DateUtils.formatElapsedTime(Long.parseLong(currentSong.getMediaDuration()));
+            time_total_bottom.setText(timeString);
+            time_total_slide.setText(timeString);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     private void changeButtonColor(ImageView imageView) {
-        int color = Color.BLACK; //context.getResources().getColor(R.color.colorAccent); //The color u want
-        imageView.setColorFilter(color);
+        try {
+            int color = Color.BLACK; //context.getResources().getColor(R.color.colorAccent); //The color u want
+            imageView.setColorFilter(color);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
