@@ -221,7 +221,9 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
                 streamingManager.onSkipToPrevious();
                 break;
             case R.id.btn_play:
-                playPauseEvent(view);
+                if (currentSong!=null) {
+                    playPauseEvent(view);
+                }
                 break;
         }
     }
