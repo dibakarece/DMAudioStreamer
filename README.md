@@ -106,9 +106,26 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
 2. You can play audio in `Single/Multiple` mode based on your code:
 
 ```java
-        streamingManager.setMediaList(listMusic);
-        streamingManager.setPlayMultiple(true);
+        streamingManager.setMediaList(`Your music list`);
+        streamingManager.setPlayMultiple(`True/False`);
 ```
+
+3. For play music:
+
+```java
+         MediaMetaData obj = new MediaMetaData();
+         infoData.setMediaId(`id`); *Media Duration Id*
+         infoData.setMediaUrl(`source`); *Media source `https://yourmusicsource/talkies.mp3`*
+         infoData.setMediaTitle(`title`);
+         infoData.setMediaArtist(`artist`);
+         infoData.setMediaAlbum(`album`);
+         infoData.setMediaComposer(`composer`);
+         infoData.setMediaDuration(`duration`); *Media Duration Sec.*
+         infoData.setMediaArt(`image`); *Media Art*
+
+         streamingManager.onPlay(`Your Music MetaData`);
+```
+
 
 License
 =======
