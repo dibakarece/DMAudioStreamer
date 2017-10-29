@@ -126,7 +126,30 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
 
          streamingManager.onPlay(`Your Music MetaData`);
 ```
+4. For notification controller(For more details please check my demo app):
 
+```java
+         streamingManager.setShowPlayerNotification(true);
+         streamingManager.setPendingIntentAct(`Create Your Pending Intent And Set Here`);
+```
+
+```xml
+<service
+     android:name="dm.audiostreamer.AudioStreamingService"
+     android:enabled="true"
+     android:exported="true" />
+<receiver android:name="dm.audiostreamer.AudioStreamingReceiver">
+      <intent-filter>
+           <action android:name="dm.audiostreamer.close" />
+           <action android:name="dm.audiostreamer.pause" />
+           <action android:name="dm.audiostreamer.next" />
+           <action android:name="dm.audiostreamer.play" />
+           <action android:name="dm.audiostreamer.previous" />
+           <action android:name="android.intent.action.MEDIA_BUTTON" />
+           <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+      </intent-filter>
+</receiver>
+```
 
 License
 =======
