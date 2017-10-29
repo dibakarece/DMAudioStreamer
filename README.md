@@ -2,7 +2,7 @@ DMAudioStreamer
 ==================
 
 [![License](https://img.shields.io/github/license/blipinsk/StaggeredAnimationGroup.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
-[![Release](https://jitpack.io/v/User/Repo.svg)](https://jitpack.io/#dibakarece/DMAudioStreamer)
+[![Release](https://jitpack.io/v/dibakarece/DMAudioStreamer.svg?style=flat-square)]
 
 <a href="https://play.google.com/store/apps/details?id=dm.audiostreamerdemo">
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
