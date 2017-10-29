@@ -17,7 +17,7 @@ App Screens
 ![scr4](https://user-images.githubusercontent.com/10453203/31852070-04bdf492-b68f-11e7-8c92-1ec26b2042db.png)
 ![scr5](https://user-images.githubusercontent.com/10453203/31852072-081aadb0-b68f-11e7-84da-372ab3dca009.png)
 ![scr6](https://user-images.githubusercontent.com/10453203/31852075-0bf357fc-b68f-11e7-93f0-7cba38d4974b.png)
-![scr7](https://user-images.githubusercontent.com/10453203/32147818-33224ba0-bd13-11e7-85ea-850958c99a05.png)
+![scr7](https://user-images.githubusercontent.com/10453203/32148071-15dac65e-bd17-11e7-9175-d9f798d026fd.png)
 
 Usage
 =====
