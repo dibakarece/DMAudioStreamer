@@ -41,7 +41,6 @@ public class AudioPlaybackListener implements PlaybackListener, AudioManager.OnA
     private int mState;
     private Callback mCallback;
     private boolean mPlayOnFocusGain;
-    private volatile boolean mAudioNoisyReceiverRegistered;
     private volatile int mCurrentPosition;
     private volatile String mCurrentMediaId;
 
@@ -163,20 +162,25 @@ public class AudioPlaybackListener implements PlaybackListener, AudioManager.OnA
 
     @Override
     public void pause() {
-        if (mState == PlaybackStateCompat.STATE_PLAYING) {
-            // Pause media player and cancel the 'foreground service' state.
-            if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
-                mMediaPlayer.pause();
-                mCurrentPosition = mMediaPlayer.getCurrentPosition();
+        try {
+            if (mState == PlaybackStateCompat.STATE_PLAYING) {
+                // Pause media player and cancel the 'foreground service' state.
+                if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+                    mMediaPlayer.pause();
+                    mCurrentPosition = mMediaPlayer.getCurrentPosition();
+                }
+                // while paused, retain the MediaPlayer but give up audio focus
+                relaxResources(false);
             }
-            // while paused, retain the MediaPlayer but give up audio focus
-            relaxResources(false);
+            mState = PlaybackStateCompat.STATE_PAUSED;
+            if (mCallback != null) {
+                mCallback.onPlaybackStatusChanged(mState);
+            }
+            unregisterAudioNoisyReceiver();
+        } catch (IllegalStateException ex) {
+            Logger.e(TAG, ex, "Exception pause IllegalStateException");
+            ex.printStackTrace();
         }
-        mState = PlaybackStateCompat.STATE_PAUSED;
-        if (mCallback != null) {
-            mCallback.onPlaybackStatusChanged(mState);
-        }
-        unregisterAudioNoisyReceiver();
     }
 
 
@@ -242,6 +246,7 @@ public class AudioPlaybackListener implements PlaybackListener, AudioManager.OnA
         if (mAudioFocus == AUDIO_NO_FOCUS_NO_DUCK) {
             // If we don't have audio focus and can't duck, we have to pause,
             if (mState == PlaybackStateCompat.STATE_PLAYING) {
+                mPlayOnFocusGain = false;
                 pause();
             }
         } else {  // we have audio focus:
@@ -400,16 +405,22 @@ public class AudioPlaybackListener implements PlaybackListener, AudioManager.OnA
     }
 
     private void registerAudioNoisyReceiver() {
-        if (!mAudioNoisyReceiverRegistered) {
-            mContext.registerReceiver(mAudioNoisyReceiver, mAudioNoisyIntentFilter);
-            mAudioNoisyReceiverRegistered = true;
+        try {
+            if (mAudioNoisyReceiver!=null) {
+                mContext.registerReceiver(mAudioNoisyReceiver, mAudioNoisyIntentFilter);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     private void unregisterAudioNoisyReceiver() {
-        if (mAudioNoisyReceiverRegistered) {
-            mContext.unregisterReceiver(mAudioNoisyReceiver);
-            mAudioNoisyReceiverRegistered = false;
+        try {
+            if (mAudioNoisyReceiver!=null) {
+                mContext.unregisterReceiver(mAudioNoisyReceiver);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

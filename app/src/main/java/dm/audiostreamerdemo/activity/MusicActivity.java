@@ -5,7 +5,9 @@
  */
 package dm.audiostreamerdemo.activity;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -81,7 +83,7 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
     //For  Implementation
     private AudioStreamingManager streamingManager;
     private MediaMetaData currentSong;
-
+    private List<MediaMetaData> listOfSongs = new ArrayList<MediaMetaData>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +91,7 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
         setContentView(R.layout.activity_music);
 
         this.context = MusicActivity.this;
-        streamingManager = AudioStreamingManager.getInstance(context);
-
+        configAudioStreamer();
         uiInitialization();
         loadMusicData();
     }
@@ -150,14 +151,18 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
             case PlaybackStateCompat.STATE_PLAYING:
                 pgPlayPauseLayout.setVisibility(View.INVISIBLE);
                 btn_play.Play();
-                currentSong.setPlayState(PlaybackStateCompat.STATE_PLAYING);
-                notifyAdapter(currentSong);
+                if (currentSong != null) {
+                    currentSong.setPlayState(PlaybackStateCompat.STATE_PLAYING);
+                    notifyAdapter(currentSong);
+                }
                 break;
             case PlaybackStateCompat.STATE_PAUSED:
                 pgPlayPauseLayout.setVisibility(View.INVISIBLE);
                 btn_play.Pause();
-                currentSong.setPlayState(PlaybackStateCompat.STATE_PAUSED);
-                notifyAdapter(currentSong);
+                if (currentSong != null) {
+                    currentSong.setPlayState(PlaybackStateCompat.STATE_PAUSED);
+                    notifyAdapter(currentSong);
+                }
                 break;
             case PlaybackStateCompat.STATE_NONE:
                 currentSong.setPlayState(PlaybackStateCompat.STATE_NONE);
@@ -167,13 +172,17 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
                 pgPlayPauseLayout.setVisibility(View.INVISIBLE);
                 btn_play.Pause();
                 audioPg.setValue(0);
-                currentSong.setPlayState(PlaybackStateCompat.STATE_NONE);
-                notifyAdapter(currentSong);
+                if (currentSong != null) {
+                    currentSong.setPlayState(PlaybackStateCompat.STATE_NONE);
+                    notifyAdapter(currentSong);
+                }
                 break;
             case PlaybackStateCompat.STATE_BUFFERING:
                 pgPlayPauseLayout.setVisibility(View.VISIBLE);
-                currentSong.setPlayState(PlaybackStateCompat.STATE_NONE);
-                notifyAdapter(currentSong);
+                if (currentSong != null) {
+                    currentSong.setPlayState(PlaybackStateCompat.STATE_NONE);
+                    notifyAdapter(currentSong);
+                }
                 break;
         }
     }
@@ -221,7 +230,7 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
                 streamingManager.onSkipToPrevious();
                 break;
             case R.id.btn_play:
-                if (currentSong!=null) {
+                if (currentSong != null) {
                     playPauseEvent(view);
                 }
                 break;
@@ -263,6 +272,18 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
         setPGTime(0);
         setMaxTime();
         loadSongDetails(media);
+    }
+
+    private void configAudioStreamer() {
+        streamingManager = AudioStreamingManager.getInstance(context);
+        //Set PlayMultiple 'true' if want to playing sequentially one by one songs
+        // and provide the list of songs else set it 'false'
+        streamingManager.setPlayMultiple(true);
+        streamingManager.setMediaList(listOfSongs);
+        //If you want to show the Player Notification then set ShowPlayerNotification as true
+        //and provide the pending intent so that after click on notification it will redirect to an activity
+        streamingManager.setShowPlayerNotification(true);
+        streamingManager.setPendingIntentAct(getNotificationPendingIntent());
     }
 
     private void uiInitialization() {
@@ -378,10 +399,10 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
         MusicBrowser.loadMusic(context, new MusicLoaderListener() {
             @Override
             public void onLoadSuccess(List<MediaMetaData> listMusic) {
+                listOfSongs = listMusic;
                 adapterMusic.refresh(listMusic);
-                streamingManager.setMediaList(listMusic);
-                streamingManager.setPlayMultiple(true);
 
+                configAudioStreamer();
                 checkAlreadyPlaying();
             }
 
@@ -401,11 +422,13 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
         if (streamingManager.isPlaying()) {
             currentSong = streamingManager.getCurrentAudio();
             if (currentSong != null) {
+                currentSong.setPlayState(streamingManager.mLastPlaybackState);
                 showMediaInfo(currentSong);
                 notifyAdapter(currentSong);
             }
         }
     }
+
     private void loadSongDetails(MediaMetaData metaData) {
         text_songName.setText(metaData.getMediaTitle());
         text_songAlb.setText(metaData.getMediaArtist());
@@ -487,10 +510,18 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
 
     private void changeButtonColor(ImageView imageView) {
         try {
-            int color = Color.BLACK; //context.getResources().getColor(R.color.colorAccent); //The color u want
+            int color = Color.BLACK;
             imageView.setColorFilter(color);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private PendingIntent getNotificationPendingIntent() {
+        Intent intent = new Intent(context, MusicActivity.class);
+        intent.setAction("openplayer");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        return mPendingIntent;
     }
 }
