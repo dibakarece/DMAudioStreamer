@@ -3,6 +3,7 @@ DMAudioStreamer
 
 [![License](https://img.shields.io/github/license/blipinsk/StaggeredAnimationGroup.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Release](https://jitpack.io/v/dibakarece/DMAudioStreamer.svg?style=flat-square)](https://jitpack.io/#dibakarece/DMAudioStreamer)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DMAudioStreamer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6383)
 
 <a href="https://play.google.com/store/apps/details?id=dm.audiostreamerdemo">
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
@@ -33,7 +34,7 @@ allprojects {
 ```
 ```xml
 dependencies {
-    compile 'com.github.dibakarece:dmaudiostreamer:v1.0.0'
+    compile 'com.github.dibakarece:dmaudiostreamer:v1.0.1'
 }
 ```
 
