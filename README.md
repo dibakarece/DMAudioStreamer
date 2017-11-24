@@ -1,10 +1,10 @@
+DMAudioStreamer
+==================
 
 [![License](https://img.shields.io/github/license/blipinsk/StaggeredAnimationGroup.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Release](https://jitpack.io/v/dibakarece/DMAudioStreamer.svg?style=flat-square)](https://jitpack.io/#dibakarece/DMAudioStreamer)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DMAudioStreamer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6383)
 
-DMAudioStreamer
-==================
 `DMAudioStreamer` library help you to integrate audio streaming in your application.
 
 <a href="https://play.google.com/store/apps/details?id=dm.audiostreamerdemo">
