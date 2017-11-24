@@ -5,11 +5,11 @@ DMAudioStreamer
 [![Release](https://jitpack.io/v/dibakarece/DMAudioStreamer.svg?style=flat-square)](https://jitpack.io/#dibakarece/DMAudioStreamer)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DMAudioStreamer-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6383)
 
+`DMAudioStreamer` library help you to integrate audio streaming in your application.
+
 <a href="https://play.google.com/store/apps/details?id=dm.audiostreamerdemo">
   <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
 </a>
-
-`DMAudioStreamer` library help you to integrate audio streaming in your application.
 
 App Screens
 =====
