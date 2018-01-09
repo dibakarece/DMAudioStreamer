@@ -2,13 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "dm.audiostreamerdemo"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -24,7 +23,7 @@ dependencies {
     //compile project(path: ':dmaudiostreamer')
     compile 'com.github.dibakarece:dmaudiostreamer:v1.0.1'
     compile'com.nineoldandroids:library:2.4.0'
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.google.code.gson:gson:2.6.2'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
