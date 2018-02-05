@@ -34,7 +34,7 @@ allprojects {
 ```
 ```xml
 dependencies {
-    compile 'com.github.dibakarece:dmaudiostreamer:v1.0.3'
+    compile 'com.github.dibakarece:dmaudiostreamer:v1.0.4'
 }
 ```
 
