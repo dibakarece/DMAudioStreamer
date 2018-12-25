@@ -6,11 +6,14 @@
 package dm.audiostreamer;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
@@ -25,6 +28,10 @@ import android.widget.RemoteViews;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.Objects;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 
@@ -143,6 +150,12 @@ public class AudioStreamingService extends Service implements NotificationManage
 
     private void createNotification(MediaMetaData mSongDetail) {
         try {
+
+            String channelId = "";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                channelId = getNotificationChannelId();
+            }
+
             String songName = mSongDetail.getMediaTitle();
             String authorName = mSongDetail.getMediaArtist();
             String albumName = mSongDetail.getMediaAlbum();
@@ -157,11 +170,16 @@ public class AudioStreamingService extends Service implements NotificationManage
 
             Notification notification = null;
             if (pendingIntent != null) {
-                notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.drawable.player)
-                        .setContentIntent(pendingIntent).setContentTitle(songName).build();
+                notification = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                        .setSmallIcon(R.drawable.player)
+                        .setContentIntent(pendingIntent)
+                        .setContentTitle(songName)
+                        .build();
             } else {
-                notification = new NotificationCompat.Builder(getApplicationContext()).setSmallIcon(R.drawable.player)
-                        .setContentTitle(songName).build();
+                notification = new NotificationCompat.Builder(getApplicationContext(), channelId)
+                        .setSmallIcon(R.drawable.player)
+                        .setContentTitle(songName)
+                        .build();
             }
 
             notification.contentView = simpleContentView;
@@ -240,6 +258,20 @@ public class AudioStreamingService extends Service implements NotificationManage
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @NonNull
+    private String getNotificationChannelId() {
+        NotificationChannel channel = new NotificationChannel(TAG, "AudioStreamingServiceChannel",
+                android.app.NotificationManager.IMPORTANCE_DEFAULT);
+        channel.enableLights(true);
+        channel.setLightColor(Color.BLUE);
+        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+        android.app.NotificationManager notificationManager =
+                (android.app.NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Objects.requireNonNull(notificationManager).createNotificationChannel(channel);
+        return TAG;
     }
 
     public void setListeners(RemoteViews view) {
