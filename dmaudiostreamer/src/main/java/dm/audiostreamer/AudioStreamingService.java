@@ -5,7 +5,6 @@
  */
 package dm.audiostreamer;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -18,7 +17,6 @@ import android.media.RemoteControlClient;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -26,6 +24,8 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import androidx.core.app.NotificationCompat;
 
 
 public class AudioStreamingService extends Service implements NotificationManager.NotificationCenterDelegate {
