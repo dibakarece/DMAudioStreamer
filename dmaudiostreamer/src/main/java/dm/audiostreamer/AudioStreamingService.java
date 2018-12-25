@@ -263,7 +263,7 @@ public class AudioStreamingService extends Service implements NotificationManage
     @RequiresApi(Build.VERSION_CODES.O)
     @NonNull
     private String getNotificationChannelId() {
-        NotificationChannel channel = new NotificationChannel(TAG, "AudioStreamingServiceChannel",
+        NotificationChannel channel = new NotificationChannel(TAG, getString(R.string.playback),
                 android.app.NotificationManager.IMPORTANCE_DEFAULT);
         channel.enableLights(true);
         channel.setLightColor(Color.BLUE);
@@ -274,22 +274,33 @@ public class AudioStreamingService extends Service implements NotificationManage
         return TAG;
     }
 
-    public void setListeners(RemoteViews view) {
+    private void setListeners(RemoteViews view) {
         try {
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(NOTIFY_PREVIOUS),
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
+                    getIntentForNotification(NOTIFY_PREVIOUS), PendingIntent.FLAG_UPDATE_CURRENT);
             view.setOnClickPendingIntent(R.id.player_previous, pendingIntent);
-            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(NOTIFY_CLOSE), PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
+                    getIntentForNotification(NOTIFY_CLOSE), PendingIntent.FLAG_UPDATE_CURRENT);
             view.setOnClickPendingIntent(R.id.player_close, pendingIntent);
-            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(NOTIFY_PAUSE), PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
+                    getIntentForNotification(NOTIFY_PAUSE), PendingIntent.FLAG_UPDATE_CURRENT);
             view.setOnClickPendingIntent(R.id.player_pause, pendingIntent);
-            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(NOTIFY_NEXT), PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
+                    getIntentForNotification(NOTIFY_NEXT), PendingIntent.FLAG_UPDATE_CURRENT);
             view.setOnClickPendingIntent(R.id.player_next, pendingIntent);
-            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, new Intent(NOTIFY_PLAY), PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0,
+                    getIntentForNotification(NOTIFY_PLAY), PendingIntent.FLAG_UPDATE_CURRENT);
             view.setOnClickPendingIntent(R.id.player_play, pendingIntent);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @NonNull
+    private Intent getIntentForNotification(@NonNull String action) {
+        Intent intent = new Intent(action);
+        intent.setClass(this, AudioStreamingReceiver.class);
+        return intent;
     }
 
     @Override
