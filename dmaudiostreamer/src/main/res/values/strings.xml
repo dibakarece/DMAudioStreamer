@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DMAudioStreamer</string>
+    <string name="playback">Playback</string>
 </resources>
