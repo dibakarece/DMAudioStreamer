@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     defaultConfig {
         applicationId "dm.audiostreamerdemo"
         minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 5
-        versionName "1.0.5"
+        targetSdkVersion 30
+        versionCode 6
+        versionName "1.0.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,16 +20,16 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(path: ':dmaudiostreamer')
-//    compile 'com.github.dibakarece:dmaudiostreamer:v1.0.4'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.mediarouter:mediarouter:1.0.0'
+//    implementation project(path: ':dmaudiostreamer')
+    implementation 'com.github.dibakarece:DMAudioStreamer:v1.0.5'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.mediarouter:mediarouter:1.1.0'
     implementation'com.nineoldandroids:library:2.4.0'
-    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     implementation 'com.github.hannesa2:AndroidSlidingUpPanel:3.5.0'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 }

@@ -30,7 +30,7 @@ import android.widget.ImageView;
 import dm.audiostreamerdemo.R;
 
 
-public class PlayPauseView extends ImageView {
+public class PlayPauseView extends androidx.appcompat.widget.AppCompatImageView {
 
     private static final Property<PlayPauseView, Integer> COLOR = new Property<PlayPauseView, Integer>(Integer.class, "color") {
         @Override

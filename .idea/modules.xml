@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidStudioProjects-DMAudioStreamer.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidStudioProjects-DMAudioStreamer.iml" group="DMAudioStreamer" />
       <module fileurl="file://$PROJECT_DIR$/DMAudioStreamer.iml" filepath="$PROJECT_DIR$/DMAudioStreamer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DMAudioStreamer-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DMAudioStreamer-app.iml" group="DMAudioStreamer/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dmaudiostreamer/DMAudioStreamer-dmaudiostreamer.iml" filepath="$PROJECT_DIR$/.idea/modules/dmaudiostreamer/DMAudioStreamer-dmaudiostreamer.iml" group="DMAudioStreamer/dmaudiostreamer" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dmaudiostreamer/dmaudiostreamer.iml" filepath="$PROJECT_DIR$/dmaudiostreamer/dmaudiostreamer.iml" />
     </modules>
