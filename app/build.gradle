@@ -20,8 +20,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(path: ':dmaudiostreamer')
-//    compile 'com.github.dibakarece:dmaudiostreamer:v1.0.4'
+//    implementation project(path: ':dmaudiostreamer')
+    implementation 'com.github.dibakarece:DMAudioStreamer:v1.0.5'
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.mediarouter:mediarouter:1.0.0'
     implementation'com.nineoldandroids:library:2.4.0'
