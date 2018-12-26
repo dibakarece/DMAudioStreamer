@@ -6,10 +6,10 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 2
-        versionName "1.0.2"
+        versionCode 5
+        versionName "1.0.5"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
     buildTypes {
@@ -30,6 +30,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.mediarouter:mediarouter:1.0.0'
-    api 'com.android.support:support-v4:28.0.0'
+//    api 'com.android.support:support-v4:28.0.0'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }

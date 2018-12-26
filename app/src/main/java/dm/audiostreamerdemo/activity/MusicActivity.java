@@ -12,8 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,12 +26,15 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import dm.audiostreamer.AudioStreamingManager;
 import dm.audiostreamer.CurrentSessionCallback;
 import dm.audiostreamer.Logger;
@@ -42,7 +43,6 @@ import dm.audiostreamerdemo.R;
 import dm.audiostreamerdemo.adapter.AdapterMusic;
 import dm.audiostreamerdemo.network.MusicBrowser;
 import dm.audiostreamerdemo.network.MusicLoaderListener;
-import dm.audiostreamerdemo.slidinguppanel.SlidingUpPanelLayout;
 import dm.audiostreamerdemo.widgets.LineProgress;
 import dm.audiostreamerdemo.widgets.PlayPauseView;
 import dm.audiostreamerdemo.widgets.Slider;
@@ -341,9 +341,9 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
         audioPg.setMax(0);
         audioPg.setOnValueChangedListener(this);
 
-        mLayout.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+        mLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
-            public void onPanelSlide(View panel, float slideOffset) {
+            public void onPanelSlide(View view, float slideOffset) {
                 if (slideOffset == 0.0f) {
                     isExpand = false;
                     slideBottomView.setVisibility(View.VISIBLE);
@@ -358,22 +358,22 @@ public class MusicActivity extends AppCompatActivity implements CurrentSessionCa
             }
 
             @Override
-            public void onPanelExpanded(View panel) {
-                isExpand = true;
+            public void onPanelStateChanged(View view, SlidingUpPanelLayout.PanelState panelState, SlidingUpPanelLayout.PanelState panelState1) {
+                switch (panelState) {
+                    case EXPANDED:
+                        isExpand = true;
+                        break;
+                    case COLLAPSED:
+                        isExpand = false;
+                        break;
+                    default:
+                        isExpand = false;
+                        break;
+                }
+
             }
 
-            @Override
-            public void onPanelCollapsed(View panel) {
-                isExpand = false;
-            }
 
-            @Override
-            public void onPanelAnchored(View panel) {
-            }
-
-            @Override
-            public void onPanelHidden(View panel) {
-            }
         });
 
         musicList = (ListView) findViewById(R.id.musicList);
